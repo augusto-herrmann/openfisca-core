@@ -13,7 +13,7 @@ def prev() -> str:
         exit(1)
 
     minor -= 1
-    print(f"{major}.{minor}.0")
+    print(f"{major}.{minor}.0")  # noqa: T001
     exit()
 
 
