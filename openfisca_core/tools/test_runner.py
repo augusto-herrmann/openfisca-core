@@ -31,7 +31,22 @@ def import_yaml():
     return yaml, Loader
 
 
-TEST_KEYWORDS = {'absolute_error_margin', 'description', 'extensions', 'ignore_variables', 'input', 'keywords', 'max_spiral_loops', 'name', 'only_variables', 'output', 'period', 'reforms', 'relative_error_margin'}
+TEST_KEYWORDS = {
+    'absolute_error_margin',
+    'description',
+    'extensions',
+    'ignore_variables',
+    'input',
+    'keywords',
+    'max_spiral_loops',
+    'name',
+    'neutralized_variables',
+    'only_variables',
+    'output',
+    'period',
+    'reforms',
+    'relative_error_margin'
+    }
 
 yaml, Loader = import_yaml()
 
@@ -143,9 +158,14 @@ class YamlItem(pytest.Item):
         input = self.test.get('input', {})
         period = self.test.get('period')
         max_spiral_loops = self.test.get('max_spiral_loops')
+        neutralized_variables = self.test.get('neutralized_variables')
         verbose = self.options.get('verbose')
         performance_graph = self.options.get('performance_graph')
         performance_tables = self.options.get('performance_tables')
+
+        if neutralized_variables:
+            for neutralized_variable in neutralized_variables:
+                self.tax_benefit_system.neutralize_variable(neutralized_variable)
 
         try:
             builder.set_default_period(period)
