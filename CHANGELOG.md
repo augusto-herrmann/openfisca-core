@@ -1,5 +1,12 @@
 # Changelog
 
+## 35.5.0 [#1021](https://github.com/openfisca/openfisca-core/pull/1021)
+
+#### New features
+
+- Introduce neutralized_variables option in YAML test files
+  - Allows for neutralization of variables whn running a test
+
 ### 35.4.1 [#1007](https://github.com/openfisca/openfisca-core/pull/1007)
 
 #### Bug fix
@@ -29,7 +36,7 @@
   - When libraries do not implement their own types, MyPy provides stubs, or type sheds
   - Thanks to `__future__.annotations`, those stubs or type sheds are casted to `typing.Any`
   - Since 1.20.x, NumPy now provides their own type definitions
-  - The introduction of NumPy 1.20.x in #990 caused one major problem: 
+  - The introduction of NumPy 1.20.x in #990 caused one major problem:
     - It is general practice to do not import at runtime modules only used for typing purposes, thanks to the `typing.TYPE_CHEKING` variable
     - The new `numpy.typing` module was being imported at runtime, rendering OpenFisca unusable to all users depending on previous versions of NumPy (1.20.x-)
   - These changes revert #990 and solve #1009 and #1012
