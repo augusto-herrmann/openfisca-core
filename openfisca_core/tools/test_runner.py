@@ -153,8 +153,8 @@ class YamlItem(pytest.Item):
             raise ValueError("Unexpected keys {} in test '{}' in file '{}'".format(unexpected_keys, self.name, self.fspath))
 
         self.tax_benefit_system = _get_tax_benefit_system(
-            self.baseline_tax_benefit_system, 
-            self.test.get('reforms', []), 
+            self.baseline_tax_benefit_system,
+            self.test.get('reforms', []),
             self.test.get('extensions', []),
             self.test.get('neutralized_variables', [])
             )
@@ -166,7 +166,6 @@ class YamlItem(pytest.Item):
         verbose = self.options.get('verbose')
         performance_graph = self.options.get('performance_graph')
         performance_tables = self.options.get('performance_tables')
-
 
         try:
             builder.set_default_period(period)
@@ -289,7 +288,7 @@ def _get_tax_benefit_system(baseline, reforms, extensions, neutralized_variables
     if not isinstance(extensions, list):
         extensions = [extensions]
     if not isinstance(neutralized_variables, list):
-        neutralized_variables = [neutralized_variables]    
+        neutralized_variables = [neutralized_variables]
 
     # keep reforms order in cache, ignore extensions order
     key = hash((id(baseline), ':'.join(reforms), frozenset(extensions), ':'.join(neutralized_variables)))
