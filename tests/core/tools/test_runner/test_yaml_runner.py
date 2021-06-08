@@ -140,6 +140,16 @@ def test_extensions_order():
     assert xy_tax_benefit_system == yx_tax_benefit_system  # extensions order is ignored in cache
 
 
+def test_tax_benefit_systems_with_neutralized_variables():
+    baseline = TaxBenefitSystem()
+
+    re_tax_benefit_system = _get_tax_benefit_system(baseline, 'r', ['e'], [])
+    ren_tax_benefit_system = _get_tax_benefit_system(baseline, 'r', ['e'], ['n'])
+    n_tax_benefit_system = _get_tax_benefit_system(baseline, [], [], ['n'])
+    assert re_tax_benefit_system != ren_tax_benefit_system
+    assert ren_tax_benefit_system != n_tax_benefit_system
+
+
 def test_performance_graph_option_output():
     test = {'input': {'salary': {'2017-01': 2000}}, 'output': {'salary': {'2017-01': 2000}}}
     test_item = TestItem(test)
