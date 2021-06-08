@@ -27,6 +27,9 @@ class TaxBenefitSystem:
     def load_extension(self, extension):
         pass
 
+    def neutralize_variable(self, variable_name):
+        pass
+
     def entities_by_singular(self):
         return {}
 
@@ -146,6 +149,7 @@ def test_tax_benefit_systems_with_neutralized_variables():
     re_tax_benefit_system = _get_tax_benefit_system(baseline, 'r', ['e'], [])
     ren_tax_benefit_system = _get_tax_benefit_system(baseline, 'r', ['e'], ['n'])
     n_tax_benefit_system = _get_tax_benefit_system(baseline, [], [], ['n'])
+
     assert re_tax_benefit_system != ren_tax_benefit_system
     assert ren_tax_benefit_system != n_tax_benefit_system
 
