@@ -1,6 +1,42 @@
 # Changelog
 
+### 35.4.1 [#1007](https://github.com/openfisca/openfisca-core/pull/1007)
+
+#### Bug fix
+
+- Properly check for date validity in parameters.
+  - Date validity was being checked only partially, allowing parameters with illegal dates such as "2015-13-32".
+  - The changes introduced fix this error and prevent the user when a parameter date is illegal.
+
+## 35.4.0 [#1010](https://github.com/openfisca/openfisca-core/pull/1010)
+
+#### Technical changes
+
+- Update dependencies (_as in 35.3.7_).
+  - Extend NumPy compatibility to v1.20 to support M1 processors.
+
+- Make NumPy's type-checking compatible with 1.17.0+
+  - NumPy introduced their `typing` module since 1.20.0
+  - Previous type hints relying on `annotations` will henceforward no longer work
+  - This changes ensure that type hints are always legal for the last four minor NumPy versions
+
+### 35.3.8 [#1014](https://github.com/openfisca/openfisca-core/pull/1014)
+
+#### Bug fix
+
+- Drop latest NumPy supported version to 1.18.x
+  - OpenFisca relies on MyPy for optional duck & static type checking
+  - When libraries do not implement their own types, MyPy provides stubs, or type sheds
+  - Thanks to `__future__.annotations`, those stubs or type sheds are casted to `typing.Any`
+  - Since 1.20.x, NumPy now provides their own type definitions
+  - The introduction of NumPy 1.20.x in #990 caused one major problem: 
+    - It is general practice to do not import at runtime modules only used for typing purposes, thanks to the `typing.TYPE_CHEKING` variable
+    - The new `numpy.typing` module was being imported at runtime, rendering OpenFisca unusable to all users depending on previous versions of NumPy (1.20.x-)
+  - These changes revert #990 and solve #1009 and #1012
+
 ### 35.3.7 [#990](https://github.com/openfisca/openfisca-core/pull/990)
+
+_Note: this version has been unpublished due to an issue introduced by NumPy upgrade. Please use 34.3.8 or a more recent version._
 
 #### Technical changes
 
